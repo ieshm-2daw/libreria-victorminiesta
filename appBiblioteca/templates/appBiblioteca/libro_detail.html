@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{libro.titulo}}</title>
+</head>
+<body>
+    <div>
+        <h2>{{libro.titulo}}</h2>
+        <h3>{{libro.autor}}</h3>
+        <p>{{libro.editorial}}</p>
+        <p>{{libro.fecha_publicacion}}</p>
+        <p>{{libro.genero}}</p>
+        <p>{{libro.ISBN}}</p>
+        <p>{{libro.resume}}</p>
+        <p>{{libro.disponibilidad}}</p>
+    </div>
+    <a href="{% url 'listadoLibros' %}"><button type="submit">Volver</button></a>
+    <a href="{% url 'updateLibro' pk=libro.pk%}"><button type="submit">Editar</button></a>
+</body>
+</html>
