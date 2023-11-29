@@ -19,8 +19,10 @@ class CreateLibro(CreateView):
     model = Libro
     fields = ['titulo','autor', 'editorial', 'fecha_publicacion', 'genero', 'ISBN', 'resume', 'disponibilidad']
     success_url = reverse_lazy('listadoLibros')
+    template_name = "appBiblioteca/libro_form.html"
     
 class UpdateLibro(UpdateView):
     model = Libro
     fields = ['titulo','autor', 'editorial', 'fecha_publicacion', 'genero', 'ISBN', 'resume', 'disponibilidad']
     success_url = reverse_lazy('listadoLibros')
+    template_name = "appBiblioteca/libro_update_form.html"
