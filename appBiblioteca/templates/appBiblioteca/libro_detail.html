@@ -15,6 +15,7 @@
         <p>{{libro.ISBN}}</p>
         <p>{{libro.resume}}</p>
         <p>{{libro.disponibilidad}}</p>
+        <img src={{libro.portada.url}}>
     </div>
     <a href="{% url 'listadoLibros' %}"><button type="submit">Volver</button></a>
     <a href="{% url 'updateLibro' pk=libro.pk%}"><button type="submit">Editar</button></a>

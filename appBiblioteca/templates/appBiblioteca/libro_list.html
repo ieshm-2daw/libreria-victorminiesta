@@ -11,6 +11,7 @@
         {% for libro in libro_list %}
             <li><h2><a href="{% url 'detalleLibros' pk=libro.pk %}">  {{ libro.titulo }}</a></h2></li>
             <a href="{% url 'deleteLibros' pk=libro.pk%}"><button type="submit">Eliminar</button></a>
+            <li><h3>{{libro.disponibilidad}}</h3></li>
             {% empty %}
             <h4>No hay libros registrados</h4>
         {% endfor %}

@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 
 class ListLibros(ListView):
     model = Libro
+    queryset=Libro.objects.filter(disponibilidad="D")
     
 class DetailLibro(DetailView):
     model = Libro
@@ -17,12 +18,12 @@ class DeleteLibro(DeleteView):
     
 class CreateLibro(CreateView):
     model = Libro
-    fields = ['titulo','autor', 'editorial', 'fecha_publicacion', 'genero', 'ISBN', 'resume', 'disponibilidad']
+    fields = ['titulo','autor', 'editorial', 'fecha_publicacion', 'genero', 'ISBN', 'resume', 'disponibilidad','portada']
     success_url = reverse_lazy('listadoLibros')
-    template_name = "appBiblioteca/libro_form.html"
+    '''template_name = "appBiblioteca/libro_form.html" '''
     
 class UpdateLibro(UpdateView):
     model = Libro
-    fields = ['titulo','autor', 'editorial', 'fecha_publicacion', 'genero', 'ISBN', 'resume', 'disponibilidad']
+    fields = ['titulo','autor', 'editorial', 'fecha_publicacion', 'genero', 'ISBN', 'resume', 'disponibilidad','portada']
     success_url = reverse_lazy('listadoLibros')
-    template_name = "appBiblioteca/libro_update_form.html"
+    '''template_name = "appBiblioteca/libro_update_form.html"'''
