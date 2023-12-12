@@ -62,7 +62,23 @@ class PrestarLibro(View):
         libro.disponibilidad = "P"
         libro.save()
         return redirect('listadoLibros')
-    
+
+class DevolverLibro(View):
+    template_name = "appBiblioteca/libro_Devolver.html"
+    def get(self, request, pk):
+        libro_prestado = get_object_or_404(Libro, pk=pk, disponibilidad = 'P')
+        return render(request, self.template_name, {'libro': libro_prestado})
+    def post(self, request, pk):
+        libro_prestado = get_object_or_404(Libro, pk=pk, disponibilidad = 'P')
+        prestamo = Prestamo.objects.filter(libro_prestado = libro_prestado, usuario_prestamo = request.user, estado = "P").first()
+        prestamo.estado = "D"
+        prestamo.fecha_devolucion = date.today()
+        prestamo.save()
+        
+        libro_prestado.disponibilidad = "D"
+        libro_prestado.save()
+        
+        return redirect('listadoLibros')
         
             
             

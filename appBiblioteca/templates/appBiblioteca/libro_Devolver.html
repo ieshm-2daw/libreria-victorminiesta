@@ -8,14 +8,14 @@
 <body>
 
     <div>
-        <h1>Prestar libro</h1>
+        <h1>Devolver libro</h1>
         <h2>Titulo: {{libro.titulo}}</h2>
         <p>Autor: {{libro.autor}}</p>
         <p>Editorial: {{libro.editorial}}</p>
         <form enctype="multipart/form-data" method="post">
             {% csrf_token %}
             {{ formulario.as_p }}
-            <button type="submit">Prestar</button>
+            <button type="submit">Devolver</button>
         </form><br>
         <a href="{% url 'listadoLibros'%}"><button>Cancelar</button></a>
     </div>

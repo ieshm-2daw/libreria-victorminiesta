@@ -22,5 +22,8 @@
     {% if libro.disponibilidad == 'D'%}
         <a href="{% url 'prestarLibro' pk=libro.pk%}"><button type="submit">Realizar Préstamo</button></a>
     {%endif%} 
+    {% if libro.disponibilidad == 'P'%}
+        <a href="{% url 'devolverLibro' pk=libro.pk%}"><button type="submit">Devolver</button></a>
+    {%endif%} 
 </body>
 </html>
