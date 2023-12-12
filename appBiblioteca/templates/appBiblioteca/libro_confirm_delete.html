@@ -10,8 +10,8 @@
         <form method="post">{% csrf_token %}
             <p>¿Estás seguro de que deseas borrar el libro {{ libro.title }}?</p>
             <button type="submit">Confimar</button>
-            <a href="{% url 'listadoLibros'%}">Volver a la lista de libros</a>
         </form>
+        <a href="{% url 'listadoLibros'%}">Volver a la lista de libros</a>
     </div>
 </body>
 </html>

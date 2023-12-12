@@ -1,8 +1,12 @@
+from datetime import date
 from typing import Any
-from django.shortcuts import render
-from .models import Libro
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Libro, Prestamo
+from django.views import View
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.urls import reverse_lazy
+from .forms import prestamoForm
+
 
 # Create your views here.
 
@@ -39,3 +43,28 @@ class UpdateLibro(UpdateView):
     fields = ['titulo','autor', 'editorial', 'fecha_publicacion', 'genero', 'ISBN', 'resume', 'disponibilidad','portada']
     success_url = reverse_lazy('listadoLibros')
     '''template_name = "appBiblioteca/libro_update_form.html"'''
+    
+class PrestarLibro(View):
+    template_name = "appBiblioteca/libro_Prestar.html"
+    def get(self, request, pk):
+        libro = get_object_or_404(Libro, pk=pk)
+        return render(request, self.template_name, {'libro':libro})
+    def post(self,request, pk):
+        libro = get_object_or_404(Libro, pk=pk)
+        usuario = request.user
+        fecha_prestamo = date.today()
+        fecha_devolucion = "2023-12-26"
+        Prestamo.objects.create(libro_prestado = libro, 
+                                fecha_prestamo = fecha_prestamo, 
+                                fecha_devolucion = fecha_devolucion,
+                                usuario_prestamo = usuario,
+                                estado = "P")
+        libro.disponibilidad = "P"
+        libro.save()
+        return redirect('listadoLibros')
+    
+        
+            
+            
+    
+    

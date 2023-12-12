@@ -19,5 +19,8 @@
     </div>
     <a href="{% url 'listadoLibros' %}"><button type="submit">Volver</button></a>
     <a href="{% url 'updateLibro' pk=libro.pk%}"><button type="submit">Editar</button></a>
+    {% if libro.disponibilidad == 'D'%}
+        <a href="{% url 'prestarLibro' pk=libro.pk%}"><button type="submit">Realizar Préstamo</button></a>
+    {%endif%} 
 </body>
 </html>
