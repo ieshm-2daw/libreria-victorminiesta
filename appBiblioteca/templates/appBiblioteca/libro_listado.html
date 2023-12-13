@@ -1,0 +1,18 @@
+{% extends "appBiblioteca/base.html" %}
+{%block title%} Listado de Libros{%endblock title%}
+{%block content%}
+    <a href="{% url 'librosDisponibles' %}"><button>Libros Disponibles</button></a>
+    <a href="{% url 'misLibros' %}"><button>Mis libros</button></a>
+    <a href="{% url 'createLibros' %}"><button type="submit">Añadir nuevo libro</button></a>
+
+    <ul>
+        <h2>Libros:</h2>
+        {% for libro in libros %}
+            <li><h2><a href="{% url 'detalleLibros' pk=libro.pk %}">  {{ libro.titulo }}</a></h2></li>
+            <a href="{% url 'deleteLibros' pk=libro.pk%}"><button type="submit">Eliminar</button></a>
+            {% empty %}
+            <h4>No hay libros registrados</h4>
+        {% endfor %}
+    </ul>
+    
+{%endblock content%}

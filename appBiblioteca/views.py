@@ -12,6 +12,7 @@ from .forms import prestamoForm
 
 class ListLibros(ListView):
     model = Libro
+    template_name = "appBiblioteca/libro_listado.html"
     
    # queryset=Libro.objects.filter(disponibilidad="D")
     
@@ -19,9 +20,36 @@ class ListLibros(ListView):
         
         context = super().get_context_data(**kwargs)   
         
+        context['libros'] = Libro.objects.all()
+        
         context['libros_disponibles'] = Libro.objects.filter(disponibilidad="D")
         context['libros_prestados'] = Libro.objects.filter(disponibilidad="P")
         context['libros_reservados'] = Libro.objects.filter(disponibilidad="R")
+        
+        return context
+    
+class librosDisponible(ListView):
+    model= Libro
+    template_name="appBiblioteca/librosDisponibles.html"
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        
+        context = super().get_context_data(**kwargs)   
+        
+        context['libros_disponibles'] = Libro.objects.filter(disponibilidad = "D")
+        
+        return context
+    
+class MisLibros(ListView):
+    model= Prestamo
+    template_name="appBiblioteca/MisLibros.html"
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        
+        context = super().get_context_data(**kwargs)   
+        
+        context['Libros_Prestados'] = Prestamo.objects.filter(estado = "P", usuario_prestamo = self.request.user)
+        context['Libros_Devueltos'] = Prestamo.objects.filter(estado = "D", usuario_prestamo = self.request.user)
         
         return context
     

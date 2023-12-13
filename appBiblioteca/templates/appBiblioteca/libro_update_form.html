@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Libro</title>
-</head>
-<body>
+{% extends "appBiblioteca/base.html" %}
+{%block title%} Editar Libro {{libro.titulo}}{%endblock title%}
+{%block content%}
     <div>
         <h1>Editar {{libro.titulo}}</h1>
         <form method="post" enctype="multipart/form-data">
@@ -14,5 +9,4 @@
             <button type="submit">Guardar</button> 
         </form>
     </div>
-</body>
-</html>
+{% endblock content%}

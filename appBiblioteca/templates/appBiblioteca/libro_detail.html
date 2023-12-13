@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{libro.titulo}}</title>
-</head>
-<body>
+{% extends "appBiblioteca/base.html" %}
+{%block title%} {{libro.titulo}} {%endblock title%}
+{%block content%}
     <div>
         <h2>{{libro.titulo}}</h2>
         <h3>{{libro.autor}}</h3>
@@ -25,5 +20,4 @@
     {% if libro.disponibilidad == 'P'%}
         <a href="{% url 'devolverLibro' pk=libro.pk%}"><button type="submit">Devolver</button></a>
     {%endif%} 
-</body>
-</html>
+{%endblock content%}

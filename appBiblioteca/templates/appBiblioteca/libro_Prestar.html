@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prestar {{libro.titulo}}</title>
-</head>
-<body>
-
+{% extends "appBiblioteca/base.html" %}
+{%block title%}Prestar {{libro.titulo}}{%endblock title%}
+{%block content%}
     <div>
         <h1>Prestar libro</h1>
         <h2>Titulo: {{libro.titulo}}</h2>
@@ -19,6 +13,4 @@
         </form><br>
         <a href="{% url 'listadoLibros'%}"><button>Cancelar</button></a>
     </div>
-
-</body>
-</html>
+{%endblock content%}

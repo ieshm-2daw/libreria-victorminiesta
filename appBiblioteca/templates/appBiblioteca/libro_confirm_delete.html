@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Borrar</title>
-</head>
-<body>
+{% extends "appBiblioteca/base.html" %}
+{%block title%}Borrar{%endblock title%}
+{%block content%}
     <div>
         <form method="post">{% csrf_token %}
             <p>¿Estás seguro de que deseas borrar el libro {{ libro.title }}?</p>
@@ -13,5 +8,4 @@
         </form>
         <a href="{% url 'listadoLibros'%}">Volver a la lista de libros</a>
     </div>
-</body>
-</html>
+{%endblock content%}
