@@ -61,7 +61,7 @@ class LibrosPrestados(ListView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context =  super().get_context_data(**kwargs)
         
-        context['Libros_Prestados'] = Prestamo.objects.filter(estado = "P")
+        context['Libros_Prestados'] = Prestamo.objects.filter(estado = "P").order_by('fecha_devolucion')
         context['hoy'] = date.today()
         
         return context

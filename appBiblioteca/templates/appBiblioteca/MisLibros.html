@@ -9,17 +9,15 @@
 <ul>
     <h1>Libros Prestados:</h2>
     {% for libro in Libros_Prestados %}
-        <li><h2><a href="{% url 'detalleLibros' pk=libro.pk %}">  {{ libro.libro_prestado }}</a></h2></li>
-        <a href="{% url 'deleteLibros' pk=libro.pk%}"><button type="submit">Eliminar</button></a>
+        <li><h2> {{ libro.libro_prestado }}</h2></li>
         {% empty %}
         <h4>No hay libros registrados</h4>
     {% endfor %}
     <h1>Libros Devueltos:</h2>
-        {% for libro in Libros_Devueltos %}
-            <li><h2><a href="{% url 'detalleLibros' pk=libro.pk %}">  {{ libro.libro_prestado }}</a></h2></li>
-            <a href="{% url 'deleteLibros' pk=libro.pk%}"><button type="submit">Eliminar</button></a>
-            {% empty %}
-            <h4>No hay libros registrados</h4>
-        {% endfor %}
+    {% for libro in Libros_Devueltos %}
+        <li><h2> {{ libro.libro_prestado }} </h2></li>
+        {% empty %}
+        <h4>No hay libros registrados</h4>
+    {% endfor %}
 </ul>
 {%endblock content%}
