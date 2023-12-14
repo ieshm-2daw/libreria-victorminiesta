@@ -3,21 +3,21 @@
 {%block content%}
     <div>
         <h2>{{libro.titulo}}</h2>
-        <h3>{{libro.autor}}</h3>
-        <p>{{libro.editorial}}</p>
-        <p>{{libro.fecha_publicacion}}</p>
-        <p>{{libro.genero}}</p>
-        <p>{{libro.ISBN}}</p>
-        <p>{{libro.resume}}</p>
-        <p>{{libro.disponibilidad}}</p>
+        <h3>Autor: {{libro.autor}}</h3>
+        <p>Editorial: {{libro.editorial}}</p>
+        <p>Fecha de Publicación: {{libro.fecha_publicacion}}</p>
+        <p>Género: {{libro.genero}}</p>
+        <p>ISBN: {{libro.ISBN}}</p>
+        <p>Resumen: {{libro.resume}}</p>
+        <p>Disponibilidad: {{libro.disponibilidad}}</p>
         <img src={{libro.portada.url}}>
     </div>
     <a href="{% url 'listadoLibros' %}"><button type="submit">Volver</button></a>
     <a href="{% url 'updateLibro' pk=libro.pk%}"><button type="submit">Editar</button></a>
-    {% if libro.disponibilidad == 'D'%}
+    {% if libro.disponibilidad == 'Disponible'%}
         <a href="{% url 'prestarLibro' pk=libro.pk%}"><button type="submit">Realizar Préstamo</button></a>
     {%endif%} 
-    {% if libro.disponibilidad == 'P'%}
+    {% if libro.disponibilidad == 'Prestado'%}
         <a href="{% url 'devolverLibro' pk=libro.pk%}"><button type="submit">Devolver</button></a>
     {%endif%} 
 {%endblock content%}

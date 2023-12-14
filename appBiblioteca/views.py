@@ -23,9 +23,9 @@ class ListLibros(ListView):
         
         context['libros'] = Libro.objects.all()
         
-        context['libros_disponibles'] = Libro.objects.filter(disponibilidad="D")
-        context['libros_prestados'] = Libro.objects.filter(disponibilidad="P")
-        context['libros_reservados'] = Libro.objects.filter(disponibilidad="R")
+        context['libros_disponibles'] = Libro.objects.filter(disponibilidad="Disponible")
+        context['libros_prestados'] = Libro.objects.filter(disponibilidad="Prestado")
+        context['libros_reservados'] = Libro.objects.filter(disponibilidad="Reservado")
         
         return context
     
@@ -37,7 +37,7 @@ class librosDisponible(ListView):
         
         context = super().get_context_data(**kwargs)   
         
-        context['libros_disponibles'] = Libro.objects.filter(disponibilidad = "D")
+        context['libros_disponibles'] = Libro.objects.filter(disponibilidad = "Disponible")
         
         return context
     
@@ -49,8 +49,8 @@ class MisLibros(ListView):
         
         context = super().get_context_data(**kwargs)   
         
-        context['Libros_Prestados'] = Prestamo.objects.filter(estado = "P", usuario_prestamo = self.request.user)
-        context['Libros_Devueltos'] = Prestamo.objects.filter(estado = "D", usuario_prestamo = self.request.user)
+        context['Libros_Prestados'] = Prestamo.objects.filter(estado = "Prestado", usuario_prestamo = self.request.user)
+        context['Libros_Devueltos'] = Prestamo.objects.filter(estado = "Disponible", usuario_prestamo = self.request.user)
         
         return context
     
@@ -61,7 +61,7 @@ class LibrosPrestados(ListView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context =  super().get_context_data(**kwargs)
         
-        context['Libros_Prestados'] = Prestamo.objects.filter(estado = "P").order_by('fecha_devolucion')
+        context['Libros_Prestados'] = Prestamo.objects.filter(estado = "Prestado").order_by('fecha_devolucion')
         context['hoy'] = date.today()
         
         return context
@@ -99,24 +99,24 @@ class PrestarLibro(View):
                                 fecha_prestamo = fecha_prestamo, 
                                 fecha_devolucion = fecha_devolucion,
                                 usuario_prestamo = usuario,
-                                estado = "P")
-        libro.disponibilidad = "P"
+                                estado = "Prestado")
+        libro.disponibilidad = "Prestado"
         libro.save()
         return redirect('listadoLibros')
 
 class DevolverLibro(View):
     template_name = "appBiblioteca/libro_Devolver.html"
     def get(self, request, pk):
-        libro_prestado = get_object_or_404(Libro, pk=pk, disponibilidad = 'P')
+        libro_prestado = get_object_or_404(Libro, pk=pk, disponibilidad = 'Prestado')
         return render(request, self.template_name, {'libro': libro_prestado})
     def post(self, request, pk):
-        libro_prestado = get_object_or_404(Libro, pk=pk, disponibilidad = 'P')
-        prestamo = Prestamo.objects.filter(libro_prestado = libro_prestado, usuario_prestamo = request.user, estado = "P").first()
-        prestamo.estado = "D"
+        libro_prestado = get_object_or_404(Libro, pk=pk, disponibilidad = 'Prestado')
+        prestamo = Prestamo.objects.filter(libro_prestado = libro_prestado, usuario_prestamo = request.user, estado = "Prestado").first()
+        prestamo.estado = "Disponible"
         prestamo.fecha_devolucion = date.today()
         prestamo.save()
         
-        libro_prestado.disponibilidad = "D"
+        libro_prestado.disponibilidad = "Disponible"
         libro_prestado.save()
         
         return redirect('listadoLibros')

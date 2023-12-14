@@ -31,9 +31,9 @@ class Libro(models.Model):
     resume = models.TextField()
     
     DISPONIBILIDAD_CHOICES=(
-        ('D','Disponible'),
-        ('P','Prestado'),
-        ('R','Reservado'),
+        ('Disponible','D'),
+        ('Prestado','P'),
+        ('Reservado','R'),
     )
     disponibilidad=models.CharField(max_length=50, choices=DISPONIBILIDAD_CHOICES)
     portada = models.ImageField(upload_to='portadas/')
@@ -53,8 +53,8 @@ class Prestamo(models.Model):
     usuario_prestamo = models.CharField(max_length=50)
     
     ESTADO_CHOICES=(
-        ('D','Devuelto'),
-        ('P','Prestado'),
+        ('Devuelto','D'),
+        ('Prestado','P'),
     )
     estado=models.CharField(max_length=50, choices=ESTADO_CHOICES)
     

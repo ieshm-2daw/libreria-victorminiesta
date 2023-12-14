@@ -4,6 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{%block title%}{%endblock title%}</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
+    <style>
+        button{
+            justify-content: center;
+            text-align: center;
+            display: inline-flex !important;
+            width: 10%;
+        }
+        input{
+            width: 20% !important;
+            margin-left: 3%;
+        }
+        textarea{
+            width: 30% !important;
+            margin-left: 3%;
+        }
+        select{
+            width: 10% !important;
+            margin-left: 3%;
+        }
+        label{
+            margin-left: 3%;
+        }
+        img{
+            width: 20%;
+            margin-bottom: 2%;
+        }
+    </style>
 </head>
 <body>
     {%block content%}
