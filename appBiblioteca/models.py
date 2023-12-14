@@ -41,11 +41,16 @@ class Libro(models.Model):
     def __str__(self):
         return self.titulo
     
+class Usuario (AbstractUser):
+    dni = models.CharField( max_length=50)
+    direccion = models.CharField(max_length=200)
+    telefono = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(9)],null=True)
+    
 class Prestamo(models.Model):
     libro_prestado = models.ForeignKey(Libro, on_delete=models.CASCADE)
     fecha_prestamo = models.DateField()
     fecha_devolucion = models.DateField(null=True, blank=True)
-    usuario_prestamo = models.CharField(max_length=100)
+    usuario_prestamo = models.CharField(max_length=50)
     
     ESTADO_CHOICES=(
         ('D','Devuelto'),
@@ -56,7 +61,3 @@ class Prestamo(models.Model):
     def __str__(self):
         return self.libro_prestado
     
-class Usuario (AbstractUser):
-    dni = models.CharField( max_length=50)
-    direccion = models.CharField(max_length=200)
-    telefono = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(9)],null=True)

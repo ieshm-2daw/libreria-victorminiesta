@@ -1,9 +1,11 @@
 {%extends "appBiblioteca/base.html"%}
 {%block title%}Mis libros{%endblock title%}
 {%block content%}
+    <a href="{% url 'listadoLibros' %}"><button>Todos los Libros</button></a>
     <a href="{% url 'librosDisponibles' %}"><button>Libros Disponibles</button></a>
     <a href="{% url 'misLibros' %}"><button>Mis libros</button></a>
     <a href="{% url 'createLibros' %}"><button type="submit">Añadir nuevo libro</button></a>
+    <a href="{% url 'librosPrestados' %}"><button type="submit">Libros Prestados</button></a>
 <ul>
     <h1>Libros Prestados:</h2>
     {% for libro in Libros_Prestados %}

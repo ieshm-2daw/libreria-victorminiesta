@@ -1,0 +1,21 @@
+{% extends "appBiblioteca/base.html" %}
+{%block title%}Libros Prestados {{libro.titulo}}{%endblock title%}
+{%block content%}
+<a href="{% url 'listadoLibros' %}"><button>Todos los Libros</button></a>
+<a href="{% url 'librosDisponibles' %}"><button>Libros Disponibles</button></a>
+<a href="{% url 'misLibros' %}"><button>Mis libros</button></a>
+<a href="{% url 'createLibros' %}"><button type="submit">Añadir nuevo libro</button></a>
+<a href="{% url 'librosPrestados' %}"><button type="submit">Libros Prestados</button></a>
+<h1>Libros Prestados:</h2>
+
+    {% for libro in Libros_Prestados %}
+        <li><h2><a href="{% url 'detalleLibros' pk=libro.pk %}">  {{ libro.libro_prestado }}</a></h2></li>
+        <h3>Usuario: {{libro.usuario_prestamo}}</h3>
+        <h3>Fecha de Devolucion: {{libro.fecha_devolucion}}</h3>
+        {%if libro.fecha_devolucion < hoy %}
+            <p style="color:red"> Aviso: Este libro ya se ha pasado de su fecha de devolución.</p>
+        {% endif %}
+        {% empty %}
+        <h4>No hay libros registrados</h4>
+    {% endfor %}
+{%endblock content%}

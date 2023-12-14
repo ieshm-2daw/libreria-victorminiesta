@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from typing import Any
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Libro, Prestamo
@@ -6,6 +6,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from .forms import prestamoForm
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -53,6 +54,18 @@ class MisLibros(ListView):
         
         return context
     
+class LibrosPrestados(ListView):
+    model = Prestamo
+    template_name = "appBiblioteca/librosPrestados.html"
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context =  super().get_context_data(**kwargs)
+        
+        context['Libros_Prestados'] = Prestamo.objects.filter(estado = "P")
+        context['hoy'] = date.today()
+        
+        return context
+    
 class DetailLibro(DetailView):
     model = Libro
 
@@ -81,7 +94,7 @@ class PrestarLibro(View):
         libro = get_object_or_404(Libro, pk=pk)
         usuario = request.user
         fecha_prestamo = date.today()
-        fecha_devolucion = "2023-12-26"
+        fecha_devolucion = fecha_prestamo + timedelta(days=-1)
         Prestamo.objects.create(libro_prestado = libro, 
                                 fecha_prestamo = fecha_prestamo, 
                                 fecha_devolucion = fecha_devolucion,
