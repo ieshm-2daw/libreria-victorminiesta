@@ -94,7 +94,7 @@ class PrestarLibro(View):
         libro = get_object_or_404(Libro, pk=pk)
         usuario = request.user
         fecha_prestamo = date.today()
-        fecha_devolucion = fecha_prestamo + timedelta(days=-1)
+        fecha_devolucion = fecha_prestamo + timedelta(days=15)
         Prestamo.objects.create(libro_prestado = libro, 
                                 fecha_prestamo = fecha_prestamo, 
                                 fecha_devolucion = fecha_devolucion,

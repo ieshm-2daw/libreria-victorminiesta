@@ -9,7 +9,7 @@
 <h1>Libros Prestados:</h2>
 
     {% for libro in Libros_Prestados %}
-        <li><h2><a href="{% url 'detalleLibros' pk=libro.pk %}">  {{ libro.libro_prestado }}</a></h2></li>
+        <h2><a href="{% url 'detalleLibros' pk=libro.pk %}">  {{ libro.libro_prestado }}</a></h2>
         <h3>Usuario: {{libro.usuario_prestamo}}</h3>
         <h3>Fecha de Devolucion: {{libro.fecha_devolucion}}</h3>
         {%if libro.fecha_devolucion < hoy %}
