@@ -1,0 +1,18 @@
+{% extends "appBiblioteca/base.html" %}
+{% block title %}Resultados de búsqueda{% endblock title %}
+{% block content %}
+    <div>
+        <a href="{% url 'listadoLibros' %}"><button>Todos los Libros</button></a>
+        <a href="{% url 'librosDisponibles' %}"><button>Libros Disponibles</button></a>
+        <a href="{% url 'misLibros' %}"><button>Mis libros</button></a>
+        <a href="{% url 'createLibros' %}"><button type="submit">Añadir nuevo libro</button></a>
+        <a href="{% url 'librosPrestados' %}"><button type="submit">Libros Prestados</button></a>
+    </div>
+    <div>
+        <p>Resultados de búsqueda: </p>
+        {% for libro in libros %}
+            <h2><a href="{% url 'detalleLibros' pk=libro.pk %}">  {{ libro.titulo }}</a></h2>
+        {% endfor %}
+    </div>    
+{% endblock content %}
+

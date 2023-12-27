@@ -11,4 +11,5 @@ urlpatterns = [
     path('libro/edit/<int:pk>', UpdateLibro.as_view(), name='updateLibro'),
     path('libro/prestar/<int:pk>', PrestarLibro.as_view(), name='prestarLibro'),
     path('libro/devolver/<int:pk>', DevolverLibro.as_view(), name='devolverLibro'),
+    path('libro/buscar', BuscarLibro.as_view(), name='buscarLibro'),
 ]

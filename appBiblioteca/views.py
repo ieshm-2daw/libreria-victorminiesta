@@ -120,6 +120,18 @@ class DevolverLibro(View):
         libro_prestado.save()
         
         return redirect('listadoLibros')
+    
+class BuscarLibro(ListView):
+    model = Libro
+    template_name = "appBiblioteca/libro_buscar.html"
+    
+    # Se utiliza *args para recoger cualquier número de argumentos posicionales que podrían ser pasados a la función 
+    # Se utiliza **Kwargs para recoger cualquier número de argumentos de palabras clave que podrían ser pasados a la función
+    def get(self, *args, **kwargs):
+        titulo = self.request.GET.get("titulo")
+        libros = Libro.objects.filter(titulo__icontains=titulo)
+        context = {"libros": libros}
+        return render(self.request, self.template_name, context)
         
             
             
