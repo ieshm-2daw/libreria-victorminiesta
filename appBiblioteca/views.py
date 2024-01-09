@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 class ListLibros(ListView):
     model = Libro
     template_name = "appBiblioteca/libro_listado.html"
+    paginate_by = 2
     
    # queryset=Libro.objects.filter(disponibilidad="D")
     
