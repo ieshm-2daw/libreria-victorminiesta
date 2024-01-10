@@ -45,7 +45,8 @@ class Usuario (AbstractUser):
     dni = models.CharField( max_length=50)
     direccion = models.CharField(max_length=200)
     telefono = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(9)],null=True)
-    
+    def __str__(self) -> str:
+        return str(self.username)  
 class Prestamo(models.Model):
     libro_prestado = models.ForeignKey(Libro, on_delete=models.CASCADE)
     fecha_prestamo = models.DateField()

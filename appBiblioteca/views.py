@@ -7,11 +7,16 @@ from django.views.generic import ListView, DetailView, DeleteView, CreateView, U
 from django.urls import reverse_lazy
 from .forms import prestamoForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
 
-class ListLibros(ListView):
+#En el caso de tener las vistas basadas en funciones usariamos:
+# @login_required
+
+class ListLibros(LoginRequiredMixin,  ListView):
     model = Libro
     template_name = "appBiblioteca/libro_listado.html"
     paginate_by = 2
@@ -30,7 +35,7 @@ class ListLibros(ListView):
         
         return context
     
-class librosDisponible(ListView):
+class librosDisponible(LoginRequiredMixin, ListView):
     model= Libro
     template_name="appBiblioteca/librosDisponibles.html"
     
@@ -42,7 +47,7 @@ class librosDisponible(ListView):
         
         return context
     
-class MisLibros(ListView):
+class MisLibros(LoginRequiredMixin, ListView):
     model= Prestamo
     template_name="appBiblioteca/MisLibros.html"
     
@@ -55,7 +60,7 @@ class MisLibros(ListView):
         
         return context
     
-class LibrosPrestados(ListView):
+class LibrosPrestados(LoginRequiredMixin, ListView):
     model = Prestamo
     template_name = "appBiblioteca/librosPrestados.html"
     
@@ -67,26 +72,26 @@ class LibrosPrestados(ListView):
         
         return context
     
-class DetailLibro(DetailView):
+class DetailLibro(LoginRequiredMixin, DetailView):
     model = Libro
 
-class DeleteLibro(DeleteView):
+class DeleteLibro(LoginRequiredMixin, DeleteView):
     model = Libro
     success_url = reverse_lazy('listadoLibros')
     
-class CreateLibro(CreateView):
+class CreateLibro(LoginRequiredMixin, CreateView):
     model = Libro
     fields = ['titulo','autor', 'editorial', 'fecha_publicacion', 'genero', 'ISBN', 'resume', 'disponibilidad','portada']
     success_url = reverse_lazy('listadoLibros')
     '''template_name = "appBiblioteca/libro_form.html" '''
     
-class UpdateLibro(UpdateView):
+class UpdateLibro(LoginRequiredMixin, UpdateView):
     model = Libro
     fields = ['titulo','autor', 'editorial', 'fecha_publicacion', 'genero', 'ISBN', 'resume', 'disponibilidad','portada']
     success_url = reverse_lazy('listadoLibros')
     '''template_name = "appBiblioteca/libro_update_form.html"'''
     
-class PrestarLibro(View):
+class PrestarLibro(LoginRequiredMixin, View):
     template_name = "appBiblioteca/libro_Prestar.html"
     def get(self, request, pk):
         libro = get_object_or_404(Libro, pk=pk)
@@ -105,7 +110,7 @@ class PrestarLibro(View):
         libro.save()
         return redirect('listadoLibros')
 
-class DevolverLibro(View):
+class DevolverLibro(LoginRequiredMixin, View):
     template_name = "appBiblioteca/libro_Devolver.html"
     def get(self, request, pk):
         libro_prestado = get_object_or_404(Libro, pk=pk, disponibilidad = 'Prestado')
@@ -122,7 +127,7 @@ class DevolverLibro(View):
         
         return redirect('listadoLibros')
     
-class BuscarLibro(ListView):
+class BuscarLibro(LoginRequiredMixin, ListView):
     model = Libro
     template_name = "appBiblioteca/libro_buscar.html"
     

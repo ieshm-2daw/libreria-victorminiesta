@@ -10,7 +10,7 @@
             justify-content: center;
             text-align: center;
             display: inline-flex !important;
-            width: 10%;
+            width: 13%;
         }
         input{
             width: 20% !important;
@@ -31,9 +31,27 @@
             width: 20%;
             margin-bottom: 2%;
         }
+        btnLogin{
+            justify-content: center;
+            text-align: center;
+            display: inline-flex !important;
+            width: 15% !important; 
+        }
+        .enlacesloginlogout{
+            margin-bottom:3%
+        }
+        .enlacesloginlogout a{
+            padding: 1%;
+        }
     </style>
 </head>
 <body>
+    <div class="enlacesloginlogout">
+        {% if request.user.is_authenticated%}
+            Bienvenido {{request.user.username}}
+            <a href="{%url 'logout'%}">Cerrar Sesión</a>
+        {%endif%}
+    </div>
     {%block content%}
     {% endblock content%}
 <body>
